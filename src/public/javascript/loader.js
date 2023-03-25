@@ -1,5 +1,5 @@
 window.onload = () => {
-  const url = "";
+  const url = ""; // Put your hosting url here, example: http://localhost:3000 or your configurated domain name for api.
   if (!url) return alert("No url provided");
   fetch(`${url}/api/v1/getAll`)
     .then((res) => res.json())

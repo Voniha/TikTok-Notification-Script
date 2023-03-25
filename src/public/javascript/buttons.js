@@ -1,4 +1,4 @@
-const url = "";
+const url = ""; // Put your hosting url here, example: http://localhost:3000 or your configurated domain name for api.
 
 function add() {
   if (!url) return alert("No url provided");
