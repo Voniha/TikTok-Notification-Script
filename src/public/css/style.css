@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  .container-fluid {
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #005b96;
+  }
+  
+  #text-box {
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 300px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    text-align: center;
+  }
+  
+  .btns {
+    margin-bottom: 20px;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .btns button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  #add-btn {
+    background: #4caf50;
+  }
+
+  #clear-btn {
+    background: #f44336;
+  }
+
+  #start-btn {
+    background: #4caf50;
+  }
+
+  #stop-btn {
+    background: #f44336;
+  }
+  
+  .streamer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: 2px solid #333;
+    border-radius: 5px;
+  }
+#webhook {
+  width: 100%;
+  margin-bottom: 20px;
+  max-width: 300px;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  text-align: center;
+}
+
+.bg-light.text-center  {
+  padding: 20px;
+  text-align: center;
+  background-color: #005b96 !important;
+  color: red;
+  font-size: 30px;
+}
+
+.job-action-buttons {
+  display: flex;
+  justify-content: right;
+  align-items: right;
+  margin: 0 10px 10px;
+  padding: 10px 20px 10px;
+}
+
+.job-action-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+  
