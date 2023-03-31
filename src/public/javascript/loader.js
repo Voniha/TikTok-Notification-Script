@@ -4,9 +4,9 @@ window.onload = () => {
   fetch(`${url}/api/v1/getAll`)
     .then((res) => res.json())
     .then((data) => {
-      let list = document.getElementById("table-body");
       for (let i = 0; i < data.data.length; i++) {
-        if (data.status === 400) return alert(`${data.data[i].username} already exists`);
+        if (data.status === 400)
+          return alert(`${data.data[i].username} already exists`);
         let list = document.getElementById("streamers");
         let li = document.createElement("li");
         let name = document.createElement("div");
@@ -17,21 +17,38 @@ window.onload = () => {
         let imgTag = document.createElement("img");
         imgTag.setAttribute("src", data.data[i].avatar);
         let status = document.createElement("div");
+        let statusBtn = document.createElement("div");
+        statusBtn.className = "status-btn";
+        let enabledBtn = document.createElement("button");
+        if (data.data[i].enabled) {
+          enabledBtn.setAttribute("class", "btn btn-danger");
+          enabledBtn.setAttribute("onclick", "status(this.name)");
+          enabledBtn.setAttribute("name", data.data[i].username);
+          enabledBtn.innerHTML = "Disable";
+        }
+        if (!data.data[i].enabled) {
+          enabledBtn.setAttribute("class", "btn btn-success");
+          enabledBtn.setAttribute("onclick", "status(this.name)");
+          enabledBtn.setAttribute("name", data.data[i].username);
+          enabledBtn.innerHTML = "Enable";
+        }
         status.className = "status";
         status.innerHTML = data.data[i].status === "Offline" ? "Offline" : "Live";
         let rmbtn = document.createElement("div");
         rmbtn.className = "rm-btn";
         let rmbtnTag = document.createElement("button");
         rmbtnTag.setAttribute("class", "btn btn-danger");
-        rmbtnTag.setAttribute("onclick", "remove(this.name)");
-        rmbtnTag.setAttribute("name", data.data[i].username);
+        rmbtnTag.setAttribute("onclick", "remove(this.value)");
+        rmbtnTag.setAttribute("value", data.data[i].username)
         rmbtnTag.innerHTML = "Remove";
+        statusBtn.appendChild(enabledBtn);
         rmbtn.appendChild(rmbtnTag);
         img.appendChild(imgTag);
         li.appendChild(name);
         li.appendChild(img);
         li.appendChild(status);
         li.appendChild(rmbtn);
+        li.appendChild(statusBtn);
         list.appendChild(li);
       }
     })

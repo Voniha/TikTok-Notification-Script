@@ -115,7 +115,7 @@ body {
   list-style: none;
   display: inline-block;
   margin: 0 10px;
-  padding: 50px;
+  padding: 20px;
   background: #fff;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -129,12 +129,12 @@ body {
   font-weight: bold;
   margin: auto;
   position: relative;
-  bottom: 40px;
+  bottom: 15px;
 }
 
 #streamers li img {
-  width: 100%;
-  height: 100%;
+  width: 70%;
+  height: 70%;
   border-radius: 5px;
   image-rendering: auto;
 }
@@ -145,7 +145,24 @@ body {
 }
 
 .rm-btn {
-  background: #f00;
+  display: inline-block;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  margin: 2px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.status {
+  font: bold;
+  position: relative;
+  top: 7px;
+}
+
+.status-btn {
+  display: inline-block;
   color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
@@ -154,7 +171,4 @@ body {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-}
-.status {
-  font: bold;
 }

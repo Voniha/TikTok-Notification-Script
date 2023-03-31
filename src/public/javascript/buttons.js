@@ -31,23 +31,39 @@ function add() {
       let imgTag = document.createElement("img");
       imgTag.setAttribute("src", data.data.avatar);
       let status = document.createElement("div");
+      let statusBtn = document.createElement("div");
+      statusBtn.className = "status-btn";
+      let enabledBtn = document.createElement("button");
+      if (data.data.enabled) {
+        enabledBtn.setAttribute("class", "btn btn-danger");
+        enabledBtn.setAttribute("onclick", "status(this.name)");
+        enabledBtn.setAttribute("name", input.value);
+        enabledBtn.innerHTML = "Disable";
+      }
+      if (!data.data.enabled) {
+        enabledBtn.setAttribute("class", "btn btn-success");
+        enabledBtn.setAttribute("onclick", "status(this.name)");
+        enabledBtn.setAttribute("name", input.value);
+        enabledBtn.innerHTML = "Enable";
+      }
       status.className = "status";
-      status.innerHTML = data.data[i].status === "Offline" ? "Offline" : "Live";
+      status.innerHTML = data.data.status === "Offline" ? "Offline" : "Live";
       let rmbtn = document.createElement("div");
       rmbtn.className = "rm-btn";
       let rmbtnTag = document.createElement("button");
       rmbtnTag.setAttribute("class", "btn btn-danger");
-      rmbtnTag.setAttribute("onclick", "remove(this.name)");
-      rmbtnTag.setAttribute("name", input.value);
+      rmbtnTag.setAttribute("value", input.value);
+      rmbtnTag.setAttribute("onclick", `remove(this.value)`);
       rmbtnTag.innerHTML = "Remove";
       rmbtn.appendChild(rmbtnTag);
+      statusBtn.appendChild(enabledBtn);
       img.appendChild(imgTag);
       li.appendChild(name);
       li.appendChild(img);
       li.appendChild(status);
       li.appendChild(rmbtn);
+      li.appendChild(statusBtn);
       list.appendChild(li);
-     
     })
     .catch((err) => {
       console.log(err);
@@ -69,11 +85,11 @@ function remove(buttonId) {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.status === 400) return alert(`${username} does not exist`);
-      let list = document.getElementById("table-body");
-      for (let i = 0; i < list.children.length; i++) {
-        list.children[i].children[0].innerHTML = i + 1;
-      }
+      if (data.status === 400) return alert(`${user} does not exist`);
+      let list = document.getElementById("streamers");
+      let li = document.querySelector(`button[name="${user}"]`);
+      console.log(li);
+      list.removeChild(li);
     })
     .catch((err) => {
       console.log(err);
@@ -132,6 +148,10 @@ function status(username) {
           }),
         });
       }
+
+      setTimeout(() => {
+        location.reload();
+      }, 3000);
     })
     .catch((err) => {
       console.log(err);
@@ -140,7 +160,7 @@ function status(username) {
 
 function clearTable() {
   if (!url) return alert("No url provided");
-  let list = document.getElementById("table-body");
+  let list = document.getElementById("streamers");
   if (list.children.length < 1) return alert("There are no users to clear");
   fetch(`${url}/api/v1/clear`, {
     method: "GET",
@@ -161,7 +181,7 @@ function clearTable() {
 
 function stopAll() {
   if (!url) return alert("No url provided");
-  let list = document.getElementById("table-body");
+  let list = document.getElementById("streamers");
   if (list.children.length < 1) return alert("There are no users to stop");
   for (let child of list.children) {
     fetch(`${url}/api/v1/get`, {
@@ -170,17 +190,17 @@ function stopAll() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: child.children[1].innerHTML,
+        username: child.children[0].innerHTML,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === 400) return alert(`${username} does not exist`);
+        if (data.status === 400)
+          return alert(`${data.data.username} does not exist`);
         let status = data.data.enabled;
         let button = document.querySelector(
           `button[name="${data.data.username}"]`
         );
-        console.log(status);
         if (status) {
           data.data.enabled = false;
           button.innerHTML = "Enable";
@@ -203,7 +223,7 @@ function stopAll() {
 
 function startAll() {
   if (!url) return alert("No url provided");
-  let list = document.getElementById("table-body");
+  let list = document.getElementById("streamers");
   if (list.children.length < 1) return alert("There are no users to start");
   for (let child of list.children) {
     fetch(`${url}/api/v1/get`, {
@@ -212,12 +232,13 @@ function startAll() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: child.children[1].innerHTML,
+        username: child.children[0].innerHTML,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.status === 400) return alert(`${username} does not exist`);
+        if (data.status === 400)
+          return alert(`${data.data.username} does not exist`);
         let status = data.data.enabled;
         let button = document.querySelector(
           `button[name="${data.data.username}"]`
