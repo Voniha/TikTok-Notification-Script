@@ -17,7 +17,6 @@ app.get("/", (req, res) => {
 
 app.post("/api/v1/add", async (req, res) => {
   let data = await api.getTikTokInfo(req.body.username).catch(() => {});
-  console.log(data.owner.avatar_thumb.url_list)
   if (data) {
     let dbData = {
       username: req.body.username,
