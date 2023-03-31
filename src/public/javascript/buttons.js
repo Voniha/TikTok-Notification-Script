@@ -32,7 +32,7 @@ function add() {
       imgTag.setAttribute("src", data.data.avatar);
       let status = document.createElement("div");
       status.className = "status";
-      status.innerHTML = data.data[i].status ? "Live" : "Offline";
+      status.innerHTML = data.data[i].status === "Offline" ? "Offline" : "Live";
       let rmbtn = document.createElement("div");
       rmbtn.className = "rm-btn";
       let rmbtnTag = document.createElement("button");
