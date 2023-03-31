@@ -17,10 +17,12 @@ app.get("/", (req, res) => {
 
 app.post("/api/v1/add", async (req, res) => {
   let data = await api.getTikTokInfo(req.body.username).catch(() => {});
+  console.log(data.owner.avatar_thumb.url_list)
   if (data) {
     let dbData = {
       username: req.body.username,
       webhook: req.body.webhook,
+      avatar: data.owner.avatar_thumb.url_list[0],
       roomId: data.living_room_attrs.room_id,
       status: "Offline",
       enabled: true,
