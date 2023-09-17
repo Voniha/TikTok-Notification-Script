@@ -2,7 +2,7 @@
 
 - A script for live notifications via Discord Webhook. Multiple streamers configuration possible.
 
-- Discord: 𝕍𝕠𝕟𝕚𝕙𝕒#2302
+- Discord: voniha
 
 ## Instructions
 
